@@ -4,11 +4,11 @@ const scene = new THREE.Scene();
 // Configure camera
 const distance = 500;
 
-const camera = new THREE.OrthographicCamera( window.innerWidth/-2, window.innerWidth/2, window.innerHeight / 2, window.innerHeight / -2, 0.1, 10000 );
+const camera = new THREE.OrthographicCamera(window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, 0.1, 10000);
 
-camera.rotation.x = 30*Math.PI/180;
-camera.rotation.y = 0*Math.PI/180;
-camera.rotation.z = 0*Math.PI/180;
+camera.rotation.x = 30*Math.PI / 180;
+camera.rotation.y = 0*Math.PI / 180;
+camera.rotation.z = 0*Math.PI / 180;
 
 camera.position.y = -distance / 2;
 camera.position.x = 0;
@@ -32,18 +32,17 @@ scene.add(hemiLight)
 dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
 dirLight.position.set(0, 0, 200);
 dirLight.castShadow = true;
-// dirLight.target = chicken;
 scene.add(dirLight);
 
 dirLight.shadow.mapSize.width = 2048;
 dirLight.shadow.mapSize.height = 2048;
 var d = 500;
-dirLight.shadow.camera.left = - d;
+dirLight.shadow.camera.left = -d;
 dirLight.shadow.camera.right = d;
 dirLight.shadow.camera.top = d;
-dirLight.shadow.camera.bottom = - d;
+dirLight.shadow.camera.bottom = -d;
 
-const initaliseValues = () => {
+const initializeValues = () => {
   // Generate grass
   const grass = new Grass();
   scene.add(grass.mesh);
@@ -55,7 +54,7 @@ const initaliseValues = () => {
   dirLight.position.y = 200;
 }
 
-initaliseValues();
+initializeValues();
 
 // Configure renderer
 const renderer = new THREE.WebGLRenderer({
@@ -65,9 +64,9 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setSize(window.innerWidth, window.innerHeight);
 
-document.body.appendChild( renderer.domElement );
+document.body.appendChild(renderer.domElement);
 
 function Grass() {
   const grass = new THREE.Group();
@@ -113,9 +112,8 @@ function Chicken() {
 }
 
 function animate(timestamp) {
-  requestAnimationFrame( animate );
+  requestAnimationFrame(animate);
 
-  // console.log(target, )
   const distToTarget = Math.sqrt((target.x - chicken.position.x) ** 2 + (target.y - chicken.position.y) ** 2)
   
   if (distToTarget > 1) {
@@ -133,7 +131,7 @@ function animate(timestamp) {
     camera.position.x = chicken.position.x
     camera.position.y = chicken.position.y - distance / 2
   }
-  renderer.render( scene, camera );	
+  renderer.render(scene, camera);	
 }
 
 window.addEventListener('contextmenu', (e) => {
@@ -146,4 +144,4 @@ window.addEventListener('contextmenu', (e) => {
   target.y = y
 })
 
-requestAnimationFrame( animate );
+requestAnimationFrame(animate);
