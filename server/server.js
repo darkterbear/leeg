@@ -1,15 +1,12 @@
 'use strict'
-
+const cors = require('cors')
 const app = require('express')()
 const port = 3000
 
-app.use(function(req, res, next) {
-	res.header('Access-Control-Allow-Origin', '*')
-	res.header('Access-Control-Allow-Headers', 'X-Requested-With')
-	res.header('Access-Control-Allow-Headers', 'Content-Type')
-	res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS')
-	next()
-})
+app.use(cors({
+  origin: ['http://localhost:5000', 'http://localhost:3000'],
+  credentials: true
+}));
 
 const server = require('http').Server(app)
 

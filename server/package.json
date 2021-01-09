@@ -9,6 +9,7 @@
 				"deploy": "git reset --hard && git pull -X theirs && pm2 start server.js --name leeg-server"
 		},
 		"dependencies": {
+        "cors": "2.8.5",
 				"express": "^4.17.1",
 				"socket.io": "3.0.5"
 		}

@@ -10,18 +10,18 @@
  * }
  */
 
-var users = {}
+const users = {}
 
 /**
  * A dictionary of pending setTimeout handlers for disconnecting users
  */
-var disconnects = {}
+const disconnects = {}
 
 const hat = length => {
-	var text = ''
-	var possible = 'abcdef0123456789'
+	let text = ''
+	const possible = 'abcdef0123456789'
 
-	for (var i = 0; i < length; i++)
+	for (let i = 0; i < length; i++)
 		text += possible.charAt(Math.floor(Math.random() * possible.length))
 
 	return text
@@ -29,7 +29,10 @@ const hat = length => {
 
 module.exports = server => {
 	const io = require('socket.io')(server, {
-		origins: '*:*'
+    origins: '*:*',
+    cors: {
+      origins: 'http://localhost:5000'
+    }
 	})
 
 	io.on('connection', socket => {
@@ -61,6 +64,7 @@ module.exports = server => {
 
   // Update clients 30 ticks per second
   setInterval(() => {
-    io.emit(users)
+    console.log(users)
+    io.sockets.emit('update_movement', users);
   }, 1000 / 30)
 }
