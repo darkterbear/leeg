@@ -1,11 +1,12 @@
 const GRASS_WIDTH = 2000
 const GRASS_HEIGHT = 600
+const GRASS_THICKNESS = 20
 
 function Grass() {
   const grass = new THREE.Group();
 
   const createSection = color => new THREE.Mesh(
-    new THREE.BoxBufferGeometry(GRASS_WIDTH, GRASS_HEIGHT, 6), 
+    new THREE.BoxBufferGeometry(GRASS_WIDTH, GRASS_HEIGHT, GRASS_THICKNESS), 
     new THREE.MeshPhongMaterial({ color })
   );
 
