@@ -68,8 +68,8 @@ document.body.appendChild(renderer.domElement);
 function animate(timestamp) {
   requestAnimationFrame(animate);
 
+  // Update chicken position
   const distToTarget = Math.sqrt((target.x - chicken.position.x) ** 2 + (target.y - chicken.position.y) ** 2)
-  
   if (distToTarget > 1) {
     dx = (target.x - chicken.position.x) / distToTarget * CHICKEN_SPEED
     dy = (target.y - chicken.position.y) / distToTarget * CHICKEN_SPEED
@@ -92,6 +92,10 @@ window.addEventListener('contextmenu', (e) => {
   e.preventDefault()
   x = e.clientX - window.innerWidth / 2 + chicken.position.x
   y = -e.clientY / Math.sqrt(3) * 2 + window.innerHeight / 2 + 110 + chicken.position.y
+
+  if (Math.abs(x) * 2 >= 2000 || Math.abs(y) * 2 >= 600) {
+    return;
+  }
 
   chicken.rotation.z = Math.atan2(y - chicken.position.y, x - chicken.position.x) - Math.PI / 2
   target.x = x
