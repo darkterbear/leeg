@@ -8,7 +8,32 @@ socket.on('id', (id) => {
 socket.on('update_movement', (users) => {
   delete users[mId]
 
-  console.log(users)
+  const idSet = new Set(Object.keys(users))
+  for (let id in players) {
+    if (!idSet.has(id)) {
+      scene.remove(players[id].chicken)
+      delete players[id]
+    }
+  }
+
+  for (let id in users) {
+    if (!players[id]) {
+      players[id] = {
+        dx: users[id].dx,
+        dy: users[id].dy,
+        s: users[id].s,
+        chicken: new Chicken()
+      }
+
+      scene.add(players[id].chicken);
+    } else {
+      players[id].chicken.position.x = users[id].x
+      players[id].chicken.position.y = users[id].y
+      players[id].dx = users[id].dx
+      players[id].dy = users[id].dy
+      players[id].s = users[id].s
+    }
+  }
 })
 
 setInterval(() => {

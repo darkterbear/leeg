@@ -64,7 +64,6 @@ module.exports = server => {
 
   // Update clients 30 ticks per second
   setInterval(() => {
-    console.log(users)
     io.sockets.emit('update_movement', users);
   }, 1000 / 30)
 }

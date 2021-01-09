@@ -20,6 +20,16 @@ const target = {
   y: 0
 }
 
+// Initialize other player state
+/**
+ * Schema: {
+ *    id: {
+ *      chicken, x, y, dx, dy, s
+ *    }
+ * }
+ */
+const players = {}
+
 // Configure camera
 const DISTANCE = 500;
 const CAMERA_OFFSET = {
