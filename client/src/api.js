@@ -19,8 +19,6 @@ socket.on('update_movement', (users) => {
   for (let id in users) {
     if (!players[id]) {
       players[id] = {
-        dx: users[id].dx,
-        dy: users[id].dy,
         s: users[id].s,
         chicken: new Chicken()
       }
@@ -29,8 +27,7 @@ socket.on('update_movement', (users) => {
     } else {
       players[id].chicken.position.x = users[id].x
       players[id].chicken.position.y = users[id].y
-      players[id].dx = users[id].dx
-      players[id].dy = users[id].dy
+      players[id].chicken.rotation.z = users[id].d
       players[id].s = users[id].s
     }
   }
@@ -41,14 +38,11 @@ setInterval(() => {
   const y = chicken.position.y
 
   const distToTarget = Math.sqrt((target.x - chicken.position.x) ** 2 + (target.y - chicken.position.y) ** 2)
-  let dx, dy
-  if (distToTarget > 1) {
-    dx = (target.x - chicken.position.x) / distToTarget
-    dy = (target.y - chicken.position.y) / distToTarget
-  } else {
-    dx = 0
-    dy = 0
+  const d = chicken.rotation.z
+  let s = CHICKEN_SPEED
+  if (distToTarget < 1) {
+    s = 0
   }
 
-  socket.emit('update_movement', x, y, dx, dy, CHICKEN_SPEED)
+  socket.emit('update_movement', x, y, d, s)
 }, 30)

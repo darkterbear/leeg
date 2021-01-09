@@ -3,9 +3,8 @@
  *
  * 'id': {
  *    x: Number,
- *    y: Number
- *    dx: Number,
- *    dy: Number,
+ *    y: Number,
+ *    d: Number,
  *    s: Number
  * }
  */
@@ -46,9 +45,9 @@ module.exports = server => {
 		socket.emit('id', id)
 		socket.join(id)
 
-		socket.on('update_movement', (x, y, dx, dy, s) => {
+		socket.on('update_movement', (x, y, d, s) => {
       users[id] = {
-        x, y, dx, dy, s
+        x, y, d, s
       }
 		})
 
