@@ -92,7 +92,7 @@ function Chicken() {
     new THREE.BoxBufferGeometry( chickenSize, chickenSize, 40), 
     new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true } )
   );
-  
+
   body.position.z = 20;
   body.castShadow = true;
   body.receiveShadow = true;
@@ -129,14 +129,17 @@ function animate(timestamp) {
 
     chicken.position.x += dx
     chicken.position.y += dy
+
+    camera.position.x = chicken.position.x
+    camera.position.y = chicken.position.y - distance / 2
   }
   renderer.render( scene, camera );	
 }
 
 window.addEventListener('contextmenu', (e) => {
   e.preventDefault()
-  x = e.clientX - window.innerWidth / 2
-  y = -e.clientY / Math.sqrt(3) * 2 + window.innerHeight / 2 + 110
+  x = e.clientX - window.innerWidth / 2 + chicken.position.x
+  y = -e.clientY / Math.sqrt(3) * 2 + window.innerHeight / 2 + 110 + chicken.position.y
 
   chicken.rotation.z = Math.atan2(y - chicken.position.y, x - chicken.position.x) - Math.PI / 2
   target.x = x
