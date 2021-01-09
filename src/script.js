@@ -16,7 +16,7 @@ camera.position.z = DISTANCE;
 
 // Configure protagonist
 const CHICKEN_SIZE = 30;
-const CHICKEN_SPEED = 10;
+const CHICKEN_SPEED = 5;
 const chicken = new Chicken();
 
 scene.add(chicken);
@@ -33,14 +33,13 @@ hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
 scene.add(hemiLight)
 
 dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
-dirLight.position.set(0, 0, 200);
 dirLight.castShadow = true;
 scene.add(dirLight);
 
 dirLight.shadow.mapSize.width = 2048;
 dirLight.shadow.mapSize.height = 2048;
 
-const d = 500;
+const d = 100;
 dirLight.shadow.camera.left = -d;
 dirLight.shadow.camera.right = d;
 dirLight.shadow.camera.top = d;
@@ -48,6 +47,8 @@ dirLight.shadow.camera.bottom = -d;
 
 dirLight.position.x = 100;
 dirLight.position.y = 200;
+dirLight.position.z = 200;
+dirLight.target = chicken
 
 // Generate grass
 const grass = new Grass();
@@ -84,6 +85,9 @@ function animate(timestamp) {
 
     camera.position.x = chicken.position.x
     camera.position.y = chicken.position.y - DISTANCE / 2
+
+    dirLight.position.x = chicken.position.x + 100
+    dirLight.position.y = chicken.position.y + 200
   }
   renderer.render(scene, camera);	
 }
