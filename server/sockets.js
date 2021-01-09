@@ -30,7 +30,7 @@ module.exports = server => {
 	const io = require('socket.io')(server, {
     origins: '*:*',
     cors: {
-      origins: 'http://localhost:5000'
+      origins: ['http://localhost:5000', 'https://leeg.terranceli.com']
     }
 	})
 

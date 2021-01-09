@@ -1,10 +1,10 @@
 'use strict'
 const cors = require('cors')
 const app = require('express')()
-const port = 3000
+const port = 3001
 
 app.use(cors({
-  origin: ['http://localhost:5000', 'http://localhost:3000'],
+  origin: ['http://localhost:5000', 'https://leeg.terranceli.com'],
   credentials: true
 }));
 
