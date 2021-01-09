@@ -86,6 +86,11 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(renderer.domElement);
 
+function moveEntity(e, dx, dy) {
+  e.position.x += dx
+  e.position.y += dy
+}
+
 function move(dx, dy) {
   chicken.position.x += dx
   chicken.position.y += dy
@@ -100,8 +105,8 @@ function animate(timestamp) {
   // Update chicken position
   const distToTarget = Math.sqrt((target.x - chicken.position.x) ** 2 + (target.y - chicken.position.y) ** 2)
   if (distToTarget > 1) {
-    dx = (target.x - chicken.position.x) / distToTarget * CHICKEN_SPEED
-    dy = (target.y - chicken.position.y) / distToTarget * CHICKEN_SPEED
+    let dx = (target.x - chicken.position.x) / distToTarget * CHICKEN_SPEED
+    let dy = (target.y - chicken.position.y) / distToTarget * CHICKEN_SPEED
 
     if (distToTarget < CHICKEN_SPEED) {
       dx = (target.x - chicken.position.x)
@@ -110,6 +115,19 @@ function animate(timestamp) {
 
     move(dx, dy)
   }
+
+  // Update other player positions
+  for (let id in players) {
+    const p = players[id]
+    const d = p.chicken.rotation.z
+    const s = p.s
+
+    const dx = -Math.sin(d) * s
+    const dy = Math.cos(d) * s
+
+    moveEntity(p.chicken, dx, dy)
+  }
+
   renderer.render(scene, camera);	
 }
 
