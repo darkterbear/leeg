@@ -93,7 +93,7 @@ window.addEventListener('contextmenu', (e) => {
   x = e.clientX - window.innerWidth / 2 + chicken.position.x
   y = -e.clientY / Math.sqrt(3) * 2 + window.innerHeight / 2 + 110 + chicken.position.y
 
-  if (Math.abs(x) * 2 >= 2000 || Math.abs(y) * 2 >= 600) {
+  if (Math.abs(x) * 2 >= GRASS_WIDTH || Math.abs(y) * 2 >= GRASS_HEIGHT) {
     return;
   }
 
