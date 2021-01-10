@@ -53,7 +53,6 @@ module.exports = server => {
 
 		socket.on('disconnect', () => {
 			const handler = setTimeout(() => {
-				if (!users[id]) return
         delete users[id]
         io.sockets.emit('user_left', id)
 			}, 3000)
