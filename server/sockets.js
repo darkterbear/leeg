@@ -45,16 +45,16 @@ module.exports = server => {
 		socket.emit('id', id)
 		socket.join(id)
 
-		socket.on('update_movement', (x, y, target, s) => {
+		socket.on('update_movement', (x, y, d, s) => {
       users[id] = {
-        x, y, target, s
+        x, y, d, s
       }
 		})
 
 		socket.on('disconnect', () => {
 			const handler = setTimeout(() => {
-        delete users[id]
-        io.sockets.emit('user_left', id)
+				if (!users[id]) return
+				delete users[id]
 			}, 3000)
 
 			disconnects[id] = handler
@@ -64,6 +64,5 @@ module.exports = server => {
   // Update clients 30 ticks per second
   setInterval(() => {
     io.sockets.emit('update_movement', users);
-    for (let id in users) delete users[id]
   }, 1000 / 30)
 }

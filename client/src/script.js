@@ -119,29 +119,13 @@ function animate(timestamp) {
   // Update other player positions
   for (let id in players) {
     const p = players[id]
-    if (!p.t) continue
-    const distToTarget = Math.sqrt((p.t.x - p.chicken.position.x) ** 2 + (p.t.y - p.chicken.position.y) ** 2)
-    if (distToTarget > 1) {
-      let dx = (p.t.x - p.chicken.position.x) / distToTarget * p.s
-      let dy = (p.t.y - p.chicken.position.y) / distToTarget * p.s
+    const d = p.chicken.rotation.z
+    const s = p.s
 
-      if (distToTarget < p.s) {
-        dx = (p.t.x - p.chicken.position.x)
-        dy = (p.t.y - p.chicken.position.y)
-      }
+    const dx = -Math.sin(d) * s
+    const dy = Math.cos(d) * s
 
-      p.chicken.rotation.z = Math.atan2(p.t.y - p.chicken.position.y, p.t.x - p.chicken.position.x) - Math.PI / 2
-
-      moveEntity(p.chicken, dx, dy)
-    }
-    // const p = players[id]
-    // const d = p.chicken.rotation.z
-    // const s = p.s
-
-    // const dx = -Math.sin(d) * s
-    // const dy = Math.cos(d) * s
-
-    // moveEntity(p.chicken, dx, dy)
+    moveEntity(p.chicken, dx, dy)
   }
 
   renderer.render(scene, camera);	
@@ -159,8 +143,6 @@ window.addEventListener('contextmenu', (e) => {
   chicken.rotation.z = Math.atan2(y - chicken.position.y, x - chicken.position.x) - Math.PI / 2
   target.x = x
   target.y = y
-
-  updateMovement(chicken.position.x, chicken.position.y, target, CHICKEN_SPEED)
 })
 
 requestAnimationFrame(animate);
