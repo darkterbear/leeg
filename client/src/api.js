@@ -26,10 +26,17 @@ socket.on('update_movement', (users) => {
 
       scene.add(players[id].chicken);
     } else {
-      players[id].chicken.position.x = users[id].x
-      players[id].chicken.position.y = users[id].y
-      players[id].chicken.rotation.z = users[id].d
-      players[id].s = users[id].s
+      const p = players[id]
+      
+      p.s = users[id].s
+
+      const oldPosition = p.chicken.position
+      if (p.chicken.rotation.z !== users[id].d || Math.sqrt((oldPosition.x - users[id].x) ** 2 + (oldPosition.y - users[id].y) ** 2) > p.s * 50) {
+        p.chicken.position.x = users[id].x
+        p.chicken.position.y = users[id].y
+      }
+      
+      p.chicken.rotation.z = users[id].d
     }
   }
 })
