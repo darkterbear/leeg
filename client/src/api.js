@@ -1,5 +1,5 @@
-const socket = io('http://localhost:3001');
-// const socket = io('https://leeg-server.terranceli.com');
+// const socket = io('http://localhost:3000');
+const socket = io('https://leeg-api.terranceli.com');
 let mId = null
 
 socket.on('id', (id) => {

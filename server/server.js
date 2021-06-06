@@ -1,7 +1,11 @@
 'use strict'
 const cors = require('cors')
 const app = require('express')()
-const port = 3001
+const port = process.env.PORT
+
+if (!port) {
+  throw new Error('PORT environment variable missing')
+}
 
 app.use(cors({
   origin: ['http://localhost:5000', 'https://leeg.terranceli.com'],
