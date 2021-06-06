@@ -3,14 +3,21 @@
 		"version": "1.0.0",
 		"main": "server.js",
 		"scripts": {
-				"start": "pm2 start server.js --name leeg-server",
-				"restart": "pm2 restart leeg-server",
-				"redeploy": "git reset --hard && git pull -X theirs && pm2 restart leeg-server",
-				"deploy": "git reset --hard && git pull -X theirs && pm2 start server.js --name leeg-server"
+      "start": "node server.js"
 		},
 		"dependencies": {
-        "cors": "2.8.5",
-				"express": "^4.17.1",
-				"socket.io": "3.0.5"
-		}
+      "cors": "2.8.5",
+      "express": "4.17.1",
+      "socket.io": "3.0.5"
+		},
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/darkterbear/leeg.git"
+    },
+    "author": "Terrance Li",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/darkterbear/leeg/issues"
+    },
+    "homepage": "https://github.com/darkterbear/leeg#readme"
 }
